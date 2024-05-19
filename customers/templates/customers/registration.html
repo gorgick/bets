@@ -2,15 +2,27 @@
 {% load static %}
 
 {% block title %}
-login
+registration
 {% endblock %}
 
 {% block content %}
-<div>
-    <form method="POST" action="{% url 'users:registration' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="popup1">
+    <a href="{% url 'projects:projects' %}" class="popup__area"></a>
+    <div class="popup1__body">
+        <div class="container mt-5">
+            <div class="popup1__content w-50 mx-auto">
+                <a href="{% url 'projects:projects' %}" class="popup__close">x</a>
+                <div class="row">
+                    <div class="nav-link popup__title w-50 mx-auto"><h3>Registration</h3></div>
+                    <form action="{% url 'users:registration' %}" method="POST" class="mt-4">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Регаемся</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

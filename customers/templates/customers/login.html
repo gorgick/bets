@@ -6,18 +6,33 @@ login
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <form method="POST" action="{% url 'users:login' %}">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label class="form-label">Username</label>
-            <input type="text" placeholder="username" name="username" class="form-control">
+<div class="popup1">
+    <a href="{% url 'projects:projects' %}" class="popup__area"></a>
+    <div class="popup1__body">
+        <div class="container mt-5">
+            <div class="popup1__content w-50 mx-auto">
+                <a href="{% url 'projects:projects' %}" class="popup__close">x</a>
+                <div class="row">
+                    <div class="nav-link popup__title w-50 mx-auto"><h3>Login</h3></div>
+                    <form method="POST" action="{% url 'users:login' %}">
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                        <p>{{ form.non_field_errors }}</p>
+                        {% endif %}
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" placeholder="username" name="username" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" placeholder="password" name="password" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" placeholder="password" name="password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
 </div>
+
 {% endblock %}
