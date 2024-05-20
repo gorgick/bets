@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Porjects
+{% endblock %}
+
+{% block content %}
+<div class="fixed-container">
+    <img class="card-img" src="{{ product.image.url }}" alt="..."/>
+    <div>
+        <h2 class="mt-5">{{ product.name }}</h2>
+        <span>{{ product.description }}</span>
+        <span>{{ product.created_at }}</span>
+        <span>{{ product.changed_at }}</span>
+        <span>{{ product.creator }}</span>
+        {% if product.bettor %}<span>{{ product.bettor }}</span>{% endif %}
+        <form action="" id="form-price">
+            {% csrf_token %}
+            <input type="number" class="form-control" name="qty" min="{{ product.price }}" step="0.01" value="{{ product.price }}">
+            <input type="submit" id="change-price"  class="btn btn-primary mt-2" value="Price">
+        </form>
+    </div>
+</div>
+{% endblock %}

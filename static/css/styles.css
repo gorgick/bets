@@ -52,3 +52,30 @@
     color: #000;
     text-decoration: none;
 }
+.fixed-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px 40px;
+    /*    border: 1px solid black;*/
+}
+.fixed-container > img {
+    width: 400px;
+    height: 400px;
+    box-shadow: 5px 5px 10px 10px #000;
+}
+.fixed-container > div {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*    justify-content: center;*/
+    /*    border: 1px solid yellowgreen;*/
+    background-color: #7b8ba3;
+    box-shadow: 5px 5px 10px 10px #000;
+}
