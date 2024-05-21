@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Cart
+{% endblock %}
+
+{% block content %}
+<h2 class="h2-table mt-5">{{ cart.owner }}</h2>
+<br>
+<table class="price-list">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in cart.products.all %}
+            <tr class="tr">
+                <td>{{ forloop.counter }}</td>
+                <td><img src="{{ product.image.url }}" alt=""></td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">Total price</td>
+                <td colspan="2" class="mx-auto offset-md-2">33000</td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
