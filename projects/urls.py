@@ -3,7 +3,8 @@ from django.urls import path
 from projects.views import (
     ProjectsListView,
     ProjectDetailView,
-    CartView
+    CartView,
+    AccountView
 )
 
 app_name = 'projects'
@@ -11,6 +12,7 @@ app_name = 'projects'
 urlpatterns = [
     path('projects/', ProjectsListView.as_view(), name='projects'),
     path('cart/', CartView.as_view(), name='cart'),
+    path('account/', AccountView.as_view(), name='account'),
     path('projects/<int:pk>/', ProjectDetailView.as_view(), name='project_detail'),
 ]
 

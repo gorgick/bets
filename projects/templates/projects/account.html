@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Account
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4 mt-5">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a href="#listhome" class="list-group-item list-group-item-action" data-bs-toggle="list" role="tab">
+                    Home page
+                </a>
+                <a href="#listsecond" class="list-group-item list-group-item-action" data-bs-toggle="list" role="tab">
+                    second page
+                </a>
+            </div>
+            <div class="col-md-8 mt-5">
+                <div class="tab-content">
+                    <div class="tab-pane fade active" id="listhome">
+                        {% for project in customer.projects.all %}
+                        <p>{{ project }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="tab-pane fade" id="listsecond">
+                        <p>Second Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus architecto,
+                            doloremque ea id iure modi numquam quibusdam quidem? Ab accusamus aspernatur earum fugit
+                            incidunt ipsum quas quidem sed voluptatibus voluptatum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ customer.projects.all }}
+
+{% endblock %}
