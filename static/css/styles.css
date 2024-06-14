@@ -7,6 +7,10 @@
 .navbar {
     background-color: #abbbc9;
 }
+.card-img-top {
+    height: 200px;
+    width: 450px;
+}
 .main {
     background-image: url("../images/neuroart__in.7fligu..png");
     background-repeat: no-repeat;
