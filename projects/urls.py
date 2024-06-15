@@ -5,7 +5,8 @@ from projects.views import (
     ProjectDetailView,
     CartView,
     AccountView,
-    ProjectCreateView
+    ProjectCreateView,
+    AddToCartView
 )
 
 app_name = 'projects'
@@ -16,5 +17,6 @@ urlpatterns = [
     path('account/', AccountView.as_view(), name='account'),
     path('projects/<int:pk>/', ProjectDetailView.as_view(), name='project_detail'),
     path('projects/project_create/', ProjectCreateView.as_view(), name='project_create'),
+    path('add_to_cart/<int:pk>/', AddToCartView.as_view(), name='add_to_cart'),
 ]
 

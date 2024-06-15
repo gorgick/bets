@@ -83,3 +83,40 @@
     background-color: #7b8ba3;
     box-shadow: 5px 5px 10px 10px #000;
 }
+.h2-table {
+    text-align: center;
+    color: #443813;
+    font-style: oblique;
+}
+.price-list {
+    width: 60%;
+    height: 60%;
+    border: 1px solid gray;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px 40px;
+}
+.price-list img {
+    width: 100px;
+    height: 100px;
+}
+.price-list td, .price-list th {
+    border: 1px solid gray;
+    padding: 5px;
+}
+.price-list .tr {
+    background-color: white;
+    text-align: center;
+}
+.price-list thead {
+    background-color: lightgray;
+}
+.price-list tfoot {
+    background-color: lightgreen;
+    font-weight: bold;
+    text-align: center;
+}
+.btn-outline-dark {
+    margin: 0px 5px;
+}

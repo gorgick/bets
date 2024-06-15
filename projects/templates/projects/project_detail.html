@@ -15,7 +15,7 @@ Porjects
         <span>{{ product.changed_at }}</span>
         <span>{{ product.creator }}</span>
         {% if product.bettor %}<span>{{ product.bettor }}</span>{% endif %}
-        <form action="" id="form-price">
+        <form action="{% url 'projects:add_to_cart' pk=product.pk %}" method="post" id="form-price" data-product-id="{{ product.id }}">
             {% csrf_token %}
             <input type="number" class="form-control" name="qty" min="{{ product.price }}" step="0.01" value="{{ product.price }}">
             <input type="submit" id="change-price"  class="btn btn-primary mt-2" value="Price">

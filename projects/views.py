@@ -6,7 +6,7 @@ from django.views.generic import DetailView
 from customers.models import Customer
 from projects.forms import ProjectCreateForm
 from projects.mixins import CartMixin
-from projects.models import Project
+from projects.models import Project, Cart
 
 
 class ProjectsListView(View):
@@ -46,3 +46,23 @@ class ProjectCreateView(View):
             new_project.save()
             return redirect(reverse('projects:projects'))
         return render(request, 'projects/project_create.html', {'form': form})
+
+
+class AddToCartView(CartMixin, View):
+    def post(self, request, *args, **kwargs):
+        qty = request.POST.get('qty')
+        project = Project.objects.get(id=kwargs.get('pk'))
+        new_bettor = Customer.objects.get(user=request.user)
+        if float(qty) > project.price:
+            project.price = qty
+            if project.bettor != new_bettor and project.bettor is not None:
+                cart = Cart.objects.get(owner=project.bettor)
+                cart.products.remove(project)
+                self.cart.save()
+            project.bettor = new_bettor
+            project.save()
+            self.cart.products.add(project)
+            self.cart.save()
+        else:
+            pass
+        return render(request, 'projects/cart.html', {'cart': self.cart})
