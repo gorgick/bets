@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
@@ -9,10 +10,13 @@ from projects.mixins import CartMixin
 from projects.models import Project, Cart
 
 
-class ProjectsListView(View):
+class ProjectsListView(CartMixin, View):
     def get(self, request, *args, **kwargs):
+        page = request.GET.get('page', 1)
         products = Project.objects.all()
-        return render(request, 'projects/projects.html', {'products': products})
+        paginator = Paginator(products, 3)
+        current_page = paginator.page(int(page))
+        return render(request, 'projects/projects.html', {'products': current_page, 'cart': self.cart})
 
 
 class ProjectDetailView(DetailView):
