@@ -8,12 +8,17 @@ from customers.models import Customer
 from projects.forms import ProjectCreateForm
 from projects.mixins import CartMixin
 from projects.models import Project, Cart
+from projects.utils import q_search
 
 
 class ProjectsListView(CartMixin, View):
     def get(self, request, *args, **kwargs):
         page = request.GET.get('page', 1)
-        products = Project.objects.all()
+        query = request.GET.get('q', None)
+        if query:
+            products = q_search(query)
+        else:
+            products = Project.objects.all()
         paginator = Paginator(products, 3)
         current_page = paginator.page(int(page))
         return render(request, 'projects/projects.html', {'products': current_page, 'cart': self.cart})

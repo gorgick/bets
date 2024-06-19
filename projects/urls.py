@@ -12,6 +12,7 @@ from projects.views import (
 app_name = 'projects'
 
 urlpatterns = [
+    path('search/', ProjectsListView.as_view(), name='search'),
     path('projects/', ProjectsListView.as_view(), name='projects'),
     path('cart/', CartView.as_view(), name='cart'),
     path('account/', AccountView.as_view(), name='account'),

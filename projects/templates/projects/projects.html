@@ -33,14 +33,27 @@ Main page
                         <div class="text-center">
                             <!-- Product name-->
                             <h5 class="fw-bolder">
-                                {{ product.name }}
+                                {% autoescape off %}
+                                    {% if product.headline %}
+                                        {{ product.headline }}
+                                    {% else %}
+                                        {{ product.name }}
+                                    {% endif %}
+                                {% endautoescape %}
                             </h5>
                             <!-- Product price-->
                             {{ product.price }}
                         </div>
                         <div>
                             <p>
-                                {{ product.description }}
+                                {% autoescape off %}
+                                    {% if product.bodyline %}
+                                        {{ product.bodyline }}
+                                    {% else %}
+                                        {{ product.description }}
+                                    {% endif %}
+                                {% endautoescape %}
+
                             </p>
                         </div>
                     </div>

@@ -33,6 +33,10 @@
                                             href="{% url 'projects:account' %}">Account</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'projects:project_create' %}">Create Project</a></li>
                 </ul>
+                <form action="{% url 'projects:search' %}" method="get" class="d-flex me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
                 {% if request.user.is_authenticated %}
                     <form class="d-flex">
                         <a class="btn btn-outline-dark" href="{% url 'projects:cart' %}" type="submit">
