@@ -1,10 +1,12 @@
 from django.core.paginator import Paginator
+from django.db.models.signals import pre_save
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.views import View
 from django.views.generic import DetailView
 
-from customers.models import Customer
+from customers.models import Customer, Notification
 from projects.forms import ProjectCreateForm
 from projects.mixins import CartMixin
 from projects.models import Project, Cart
@@ -75,3 +77,20 @@ class AddToCartView(CartMixin, View):
         else:
             pass
         return render(request, 'projects/cart.html', {'cart': self.cart})
+
+
+def send_notification(sender, instance, **kwargs):
+    try:
+        if Project.objects.get(id=instance.id).bettor is not None:
+            if Project.objects.get(id=instance.id).price != instance.price and instance.bettor != Project.objects.get(
+                    id=instance.id).bettor:
+                Notification.objects.create(
+                    recipient=Project.objects.get(id=instance.id).bettor,
+                    text=mark_safe(
+                        f'Позиция <a href="{instance.get_absolute_url()}">{instance.name}</a>, изменился владелец')
+                )
+    except:
+        pass
+
+
+pre_save.connect(send_notification, sender=Project)

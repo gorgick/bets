@@ -9,3 +9,9 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Notification(models.Model):
+    recipient = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    text = models.TextField()
+    read = models.BooleanField(default=False)
