@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from customers.models import Customer
 
@@ -14,6 +15,10 @@ class Project(models.Model):
     bettor = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='bet_projects', null=True, blank=True)
     archived = models.BooleanField(default=False)
     cart_flag = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse('projects:project_detail', kwargs={'pk': self.id})
+
 
 
 class Cart(models.Model):

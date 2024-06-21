@@ -8,12 +8,12 @@ from django.views.generic import DetailView
 
 from customers.models import Customer, Notification
 from projects.forms import ProjectCreateForm
-from projects.mixins import CartMixin
+from projects.mixins import CartMixin, NotificationsMixin
 from projects.models import Project, Cart
 from projects.utils import q_search
 
 
-class ProjectsListView(CartMixin, View):
+class ProjectsListView(CartMixin, NotificationsMixin, View):
     def get(self, request, *args, **kwargs):
         page = request.GET.get('page', 1)
         query = request.GET.get('q', None)
@@ -23,13 +23,19 @@ class ProjectsListView(CartMixin, View):
             products = Project.objects.all()
         paginator = Paginator(products, 3)
         current_page = paginator.page(int(page))
-        return render(request, 'projects/projects.html', {'products': current_page, 'cart': self.cart})
+        return render(request, 'projects/projects.html',
+                      {'products': current_page, 'notifications': self.notifications(request.user), 'cart': self.cart})
 
 
-class ProjectDetailView(DetailView):
+class ProjectDetailView(DetailView, CartMixin):
     model = Project
     template_name = 'projects/project_detail.html'
     context_object_name = 'product'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['cart'] = self.cart
+        return context
 
 
 class CartView(CartMixin, View):
@@ -79,11 +85,22 @@ class AddToCartView(CartMixin, View):
         return render(request, 'projects/cart.html', {'cart': self.cart})
 
 
+class ClearNotificationsView(View):
+    @staticmethod
+    def get(request, *args, **kwargs):
+        Notification.objects.make_all_read(request.user.customer)
+        return redirect(reverse('projects:projects'))
+
+
 def send_notification(sender, instance, **kwargs):
     try:
         if Project.objects.get(id=instance.id).bettor is not None:
             if Project.objects.get(id=instance.id).price != instance.price and instance.bettor != Project.objects.get(
                     id=instance.id).bettor:
+                print('Project.objects.get(id=instance.id).price', Project.objects.get(id=instance.id).price)
+                print('instance.price', instance.price)
+                print('instance.bettor', instance.bettor)
+                print('Project.objects.get(id=instance.id).bettor', Project.objects.get(id=instance.id).bettor)
                 Notification.objects.create(
                     recipient=Project.objects.get(id=instance.id).bettor,
                     text=mark_safe(

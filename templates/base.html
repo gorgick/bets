@@ -32,6 +32,23 @@
                     <li class="nav-item"><a class="nav-link active" aria-current="page"
                                             href="{% url 'projects:account' %}">Account</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'projects:project_create' %}">Create Project</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">Уведомления
+                            <i class="fa fa-bell"></i>
+                            <span class="badge bg-{% if notifications.count %}danger{% else %}success{% endif %}">{{ notifications.count }}</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if notifications %}
+                            {% for n in notifications %}
+                            <li><span class="dropdown-item">{{ n.text|safe }}</span></li>
+                            {% endfor %}
+                            <li><a href="{% url 'projects:clear_notif' %}">Prochitani</a></li>
+                            {% else %}
+                            <li><a class="dropdown-item" href="#!">Нет новых</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
                 </ul>
                 <form action="{% url 'projects:search' %}" method="get" class="d-flex me-auto mb-2 mb-lg-0 ms-lg-4">
                     <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
