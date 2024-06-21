@@ -16,9 +16,14 @@ class Project(models.Model):
     archived = models.BooleanField(default=False)
     cart_flag = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ('created_at',)
+
+    def __str__(self):
+        return 'Создан в {} {}'.format(self.created_at.astimezone(tz).strftime('%d.%m.%Y %H:%M'), self.name)
+
     def get_absolute_url(self):
         return reverse('projects:project_detail', kwargs={'pk': self.id})
-
 
 
 class Cart(models.Model):
