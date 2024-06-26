@@ -43,9 +43,9 @@
                             {% for n in notifications %}
                             <li><span class="dropdown-item">{{ n.text|safe }}</span></li>
                             {% endfor %}
-                            <li><a href="{% url 'projects:clear_notif' %}">Prochitani</a></li>
+                            <li class="d-flex justify-content-center"><button class="btn btn-dark"><a href="{% url 'projects:clear_notif' %}">Make all read</a></button></li>
                             {% else %}
-                            <li><a class="dropdown-item" href="#!">Нет новых</a></li>
+                            <li><a class="dropdown-item" href="#!">Dont have any</a></li>
                             {% endif %}
                         </ul>
                     </li>

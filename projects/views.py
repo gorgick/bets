@@ -97,14 +97,10 @@ def send_notification(sender, instance, **kwargs):
         if Project.objects.get(id=instance.id).bettor is not None:
             if Project.objects.get(id=instance.id).price != instance.price and instance.bettor != Project.objects.get(
                     id=instance.id).bettor:
-                print('Project.objects.get(id=instance.id).price', Project.objects.get(id=instance.id).price)
-                print('instance.price', instance.price)
-                print('instance.bettor', instance.bettor)
-                print('Project.objects.get(id=instance.id).bettor', Project.objects.get(id=instance.id).bettor)
                 Notification.objects.create(
                     recipient=Project.objects.get(id=instance.id).bettor,
                     text=mark_safe(
-                        f'Позиция <a href="{instance.get_absolute_url()}">{instance.name}</a>, изменился владелец')
+                        f'Position <a href="{instance.get_absolute_url()}">{instance.name}</a>, changed owner')
                 )
     except:
         pass
