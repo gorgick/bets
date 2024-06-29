@@ -7,6 +7,9 @@
 .navbar {
     background-color: #abbbc9;
 }
+.card {
+    box-shadow: 5px 5px 10px 10px #000;
+}
 .card-img-top {
     height: 200px;
     width: 450px;
