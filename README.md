@@ -16,5 +16,5 @@ After that create DATABASES in your project.settings
 
 Little bit about project:
  -That's site to sell some your staff with bets from other restered people. If your anyone outbit you - you will get a message.
- ![Image alt](https://github.com/{gorgick}/{bets}/raw/{master}/{static/images/}/Notification1.png)
+ ![Image alt](https://github.com/gorgick/bets/raw/master/static/images/Notification1.png)
  
